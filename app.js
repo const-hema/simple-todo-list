@@ -33,20 +33,12 @@ app.get("/", async (req, res) => {
 
 app.post("/new", async (req, res) => {
     const { task } = req.body;
-    if (task.completed) {
-        task.completed = true;
-    } else {
-        task.completed = false;
-    }
-    const newTask = await new Task({ ...task });
-    newTask.save();
+
+    const newTask = await new Task({ ...task, completed: false });
+    await newTask.save();
     res.redirect("/");
 });
-app.get("/:id", async (req, res) => {
-    const { id } = req.params;
-    const task = await Task.findById(id);
-    res.render("show", { task });
-});
+
 app.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { task } = req.body;

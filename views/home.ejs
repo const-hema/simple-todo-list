@@ -11,15 +11,16 @@
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
             crossorigin="anonymous"
         />
+        <link rel="icon" type="image/svg+xml" href="https://example.com/image.svg" />
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-6 offset-3">
-                    <h1 class="display-1 text-white">Todos</h1>
+                <div class="col-6">
+                    <h1 class="display-1 todos-text">Todos</h1>
                     <% for(task of tasks){%>
                     <div class="lis mb-3">
-                        <form action="/<%= task._id %>?_method=PUT" method="POST" class="d-inline">
+                        <form action="/<%= task._id %>?_method=PUT" method="POST">
                             <div class="input-group mb-3">
                                 <div class="input-group-text">
                                     <input onChange="this.form.submit()" class="checkbox form-check-input mt-0" type="checkbox" <%= task.completed? "checked":"" %>
@@ -31,21 +32,17 @@
                         <form action="/<%= task._id %>?_method=DELETE" method="POST" class="d-inline">
                             <button class="btn btn-danger">Delete</button>
                         </form>
-
-                        <a href="/<%= task._id %>" class="btn btn-warning">Edit</a>
                     </div>
 
                     <% } %>
-                    <h2 class="display-3 text-primary">Add New Todo</h2>
+                </div>
+                <div class="col-6">
+                    <h2 class="display-3 newtodo-text">Add New Todo</h2>
                     <form action="/new" method="POST">
-                        <label for="newtext" class="form-label">Task Name: </label>
+                        <label for="newtext" class="form-label text-white">Task Name: </label>
                         <input type="text" id="newtext" name="task[text]" class="form-control" />
-                        <br />
-                        <label for="completed" class="form-label">Status: </label>
-                        <input type="checkbox" name="task[completed]" id="completed" value="true" class="form-checkbox" />
 
-                        <br />
-                        <button class="btn btn-primary">Submit</button>
+                        <button class="btn btn-primary mt-3">Submit</button>
                     </form>
                 </div>
             </div>
