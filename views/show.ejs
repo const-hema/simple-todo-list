@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="/<%= task._id %>?_method=PUT" method="POST">
+            <label for="text">Task ID: </label>
+            <span><%= task._id %></span>
+            <br />
+            <label for="text">Task: </label>
+            <input type="text" value="<%= task.text %>" name="task[text]" id="text" />
+            <label for="completed">status: </label>
+            <input type="checkbox" name="task[completed]" value="<%= task.completed %>" id="completed" <%= task.completed? "checked":"" %> />
+            <button>Submit</button>
+        </form>
+    </body>
+</html>
