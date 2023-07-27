@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const ejs = require("ejs");
@@ -5,7 +9,9 @@ const path = require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Task = require("./models/task");
-mongoose.connect("mongodb://127.0.0.1:27017/todos");
+
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/todos";
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error: "));
@@ -32,7 +38,6 @@ app.post("/new", async (req, res) => {
     } else {
         task.completed = false;
     }
-    console.log(task.completed);
     const newTask = await new Task({ ...task });
     newTask.save();
     res.redirect("/");
@@ -51,7 +56,6 @@ app.put("/:id", async (req, res) => {
         task.completed = false;
     }
     const editedTask = await Task.findByIdAndUpdate(id, { ...task });
-    console.log(task.completed);
     await editedTask.save();
 
     res.redirect("/");
